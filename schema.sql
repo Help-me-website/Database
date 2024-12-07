@@ -70,33 +70,6 @@ CREATE TABLE QuestionCategorie (
     FOREIGN KEY (categorie_id) REFERENCES Categorie(categorie_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Bounty (
-    bounty_id INT AUTO_INCREMENT,
-    question_id INT NOT NULL,
-    user_id INT NOT NULL,
-    amount INT NOT NULL,
-    awarded_to INT DEFAULT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    expires_at DATETIME DEFAULT NULL,
-    PRIMARY KEY (bounty_id),
-    FOREIGN KEY (question_id) REFERENCES Question(question_id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (awarded_to) REFERENCES User(user_id) ON DELETE SET NULL
-);
-
-CREATE TABLE Vote (
-    vote_id INT AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    question_id INT DEFAULT NULL,
-    answer_id INT DEFAULT NULL,
-    vote_type ENUM('upvote', 'downvote') NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (vote_id),
-    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (question_id) REFERENCES Question(question_id) ON DELETE CASCADE,
-    FOREIGN KEY (answer_id) REFERENCES Answer(answer_id) ON DELETE CASCADE
-);
-
 -- Default Values for categories
 INSERT INTO Categorie (name, description) 
 VALUES 
