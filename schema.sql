@@ -1,5 +1,4 @@
-
-CREATE TABLE User (
+CREATE TABLE if not exists  User (
     user_id INT AUTO_INCREMENT,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
@@ -16,7 +15,7 @@ CREATE TABLE User (
     PRIMARY KEY (user_id)
 );
 
-CREATE TABLE Question (
+CREATE TABLE if not exists  Question (
     question_id INT AUTO_INCREMENT,
     user_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
@@ -29,7 +28,7 @@ CREATE TABLE Question (
     FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Answer (
+CREATE TABLE if not exists  Answer (
     answer_id INT AUTO_INCREMENT,
     question_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -42,7 +41,7 @@ CREATE TABLE Answer (
     FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Comment (
+CREATE TABLE if not exists Comment (
     comment_id INT AUTO_INCREMENT,
     question_id INT DEFAULT NULL,
     answer_id INT DEFAULT NULL,
@@ -54,24 +53,23 @@ CREATE TABLE Comment (
     FOREIGN KEY (answer_id) REFERENCES Answer(answer_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );
-CREATE TABLE Categorie (
-    categorie_id INT AUTO_INCREMENT,
-    name VARCHAR(50) UNIQUE NOT NULL, -- i will insert the default categories that we have 
+CREATE TABLE  if not exists  Category (
+    category_id INT AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL,
     description TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (categorie_id)
+    PRIMARY KEY (category_id)
 );
 
-CREATE TABLE QuestionCategorie (
+CREATE TABLE if not exists  QuestionCategory (
     question_id INT NOT NULL,
-    categorie_id INT NOT NULL,
-    PRIMARY KEY (question_id, categorie_id),
+    category_id INT NOT NULL,
+    PRIMARY KEY (question_id, category_id),
     FOREIGN KEY (question_id) REFERENCES Question(question_id) ON DELETE CASCADE,
-    FOREIGN KEY (categorie_id) REFERENCES Categorie(categorie_id) ON DELETE CASCADE
+    FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE CASCADE
 );
-
 -- Default Values for categories
-INSERT INTO Categorie (name, description) 
+INSERT INTO Category (name, description) 
 VALUES 
     ('Tech', 'Questions related to technology, gadgets, and software.'),
     ('Edu', 'Educational topics, resources, and learning techniques.'),
