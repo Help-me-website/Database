@@ -74,3 +74,6 @@ Relationships:
 
 - A category may have many questions.
 
+![Enahnced Entity Relationship diagram](./EER&3rdNF/EER.jpg)
+
+![third normalization form](./EER&3rdNF/3rdNF.jpg)
